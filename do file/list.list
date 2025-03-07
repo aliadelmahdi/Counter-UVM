@@ -1,0 +1,15 @@
+interface/counter_if.sv
+design/counter.sv
+objects/counter_config.sv
+objects/counter_seq_item.sv
+objects/counter_main_sequence.sv
+objects/counter_reset_sequence.sv
+top/test/enviroment/agent/sequencer/counter_sequencer.sv
+top/test/enviroment/agent/driver/counter_driver.sv
+top/test/enviroment/scoreboard/counter_scoreboard.sv
+top/test/enviroment/agent/monitor/counter_monitor.sv
+top/test/enviroment/coverage_collector/counter_coverage_pkg.sv
+top/test/enviroment/agent/counter_agent.sv
+top/test/enviroment/counter_env.sv
+top/test/counter_test.sv
+top/top.sv

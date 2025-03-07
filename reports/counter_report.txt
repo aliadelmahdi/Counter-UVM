@@ -1,0 +1,224 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /\tb_top#DUT 
+=== Design Unit: work.counter
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       1         1         0   100.00%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/\tb_top#DUT /cover_load
+                     design/counter.sv(91)              0          1
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         7         7         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /\tb_top#DUT 
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File design/counter.sv
+------------------------------------IF Branch------------------------------------
+    26                                     10001     Count coming in to IF
+    26              1                        321             if (~rst_n) begin
+    29              1                       9680             else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    31                                      9680     Count coming in to IF
+    31              1                       6709                 if (~load_n) begin
+    35              1                       2092                 else if (ce) begin
+                                             879     All False Count
+Branch totals: 3 hits of 3 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    37                                      2092     Count coming in to IF
+    37              1                       1043                     count_out <= count_out + (up_down ? 1 : -1);
+    37              2                       1049                     count_out <= count_out + (up_down ? 1 : -1);
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+
+Directive Coverage:
+    Directives                       6         6         0   100.00%
+
+DIRECTIVE COVERAGE:
+--------------------------------------------------------------------------------------------
+Name                                     Design Design   Lang File(Line)      Hits Status    
+                                         Unit   UnitType                                     
+--------------------------------------------------------------------------------------------
+/\tb_top#DUT /cover_reset                counter Verilog  SVA  design/counter.sv(88)
+                                                                                10 Covered   
+/\tb_top#DUT /cover_zero_flag            counter Verilog  SVA  design/counter.sv(89)
+                                                                               350 Covered   
+/\tb_top#DUT /cover_max_flag             counter Verilog  SVA  design/counter.sv(90)
+                                                                                37 Covered   
+/\tb_top#DUT /cover_count_up             counter Verilog  SVA  design/counter.sv(92)
+                                                                               295 Covered   
+/\tb_top#DUT /cover_count_down           counter Verilog  SVA  design/counter.sv(93)
+                                                                               218 Covered   
+/\tb_top#DUT /cover_hold_value           counter Verilog  SVA  design/counter.sv(94)
+                                                                               233 Covered   
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      2         2         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /\tb_top#DUT  --
+
+  File design/counter.sv
+----------------Focused Expression View-----------------
+Line       45 Item    1  (count_out == 0)
+Expression totals: 1 of 1 input term covered = 100.00%
+
+        Input Term   Covered  Reason for no coverage   Hint
+       -----------  --------  -----------------------  --------------
+  (count_out == 0)         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  (count_out == 0)_0    -                             
+  Row   2:          1  (count_out == 0)_1    -                             
+
+----------------Focused Expression View-----------------
+Line       48 Item    1  (count_out == {c_if.WIDTH{1}})
+Expression totals: 1 of 1 input term covered = 100.00%
+
+                      Input Term   Covered  Reason for no coverage   Hint
+                     -----------  --------  -----------------------  --------------
+  (count_out == {c_if.WIDTH{1}})         Y
+
+     Rows:       Hits  FEC Target                        Non-masking condition(s)      
+ ---------  ---------  --------------------              -------------------------     
+  Row   1:          1  (count_out == {c_if.WIDTH{1}})_0  -                             
+  Row   2:          1  (count_out == {c_if.WIDTH{1}})_1  -                             
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      13        13         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /\tb_top#DUT  --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File design/counter.sv
+    1                                                module counter (counter_if c_if);
+    2                                                    logic rst_n;
+    3                                                    logic [c_if.WIDTH-1:0] data_load;
+    4                                                    logic load_n;
+    5                                                    logic up_down;
+    6                                                    logic ce;
+    7                                                    logic clk;
+    8                                                
+    9                                                    logic [c_if.WIDTH-1:0] count_out;
+    10                                                   logic max_count; 
+    11                                                   logic zero_flag;
+    12                                               
+    13              1                      20003         assign clk = c_if.clk;
+    14              1                        624         assign rst_n = c_if.rst_n;
+    15              1                      10001         assign data_load = c_if.data_load;
+    16              1                       4323         assign load_n = c_if.load_n;
+    17              1                       5007         assign up_down = c_if.up_down;
+    18              1                       4267         assign ce = c_if.ce;
+    19                                               
+    20                                                   assign c_if.count_out = count_out;
+    21                                                   assign c_if.max_count = max_count;
+    22                                                   assign c_if.zero_flag = zero_flag;
+    23                                                 
+    24              1                      10001         always @(posedge clk) begin
+    25                                                       // if rst = 0 count_out = 0
+    26                                                       if (~rst_n) begin
+    27              1                        321                 count_out <= 0; // Reset the counter output to zero
+    28                                                       end
+    29                                                       else begin
+    30                                                           // Load the data when load_n is low
+    31                                                           if (~load_n) begin
+    32              1                       6709                         count_out <= data_load; 
+    33                                                           end
+    34                                                           // Count up or down when enable is high
+    35                                                           else if (ce) begin
+    36                                                               // Increment or decrement based on the up_down signal
+    37              1                       2092                     count_out <= count_out + (up_down ? 1 : -1);
+    38                                                           end
+    39                                                       end 
+    40                                                   end
+    41                                               
+    42                                                   // Always block to update zero and max_count flags
+    43              1                       9112         always @(count_out) begin
+    44                                                       // Set zero_flag if count_out is zero
+    45              1                       9112             zero_flag = (count_out == 0);
+    46                                                       
+    47                                                       // Set max_count if count_out is at its maximum value
+    48              1                       9112             max_count = (count_out == {c_if.WIDTH{1'b1}});
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         78        78         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /\tb_top#DUT  --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                                ce           1           1      100.00 
+                                               clk           1           1      100.00 
+                                   count_out[15-0]           1           1      100.00 
+                                   data_load[15-0]           1           1      100.00 
+                                            load_n           1           1      100.00 
+                                         max_count           1           1      100.00 
+                                             rst_n           1           1      100.00 
+                                           up_down           1           1      100.00 
+                                         zero_flag           1           1      100.00 
+
+Total Node Count     =         39 
+Toggled Node Count   =         39 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (78 of 78 bins)
+
+
+DIRECTIVE COVERAGE:
+--------------------------------------------------------------------------------------------
+Name                                     Design Design   Lang File(Line)      Hits Status    
+                                         Unit   UnitType                                     
+--------------------------------------------------------------------------------------------
+/\tb_top#DUT /cover_reset                counter Verilog  SVA  design/counter.sv(88)
+                                                                                10 Covered   
+/\tb_top#DUT /cover_zero_flag            counter Verilog  SVA  design/counter.sv(89)
+                                                                               350 Covered   
+/\tb_top#DUT /cover_max_flag             counter Verilog  SVA  design/counter.sv(90)
+                                                                                37 Covered   
+/\tb_top#DUT /cover_count_up             counter Verilog  SVA  design/counter.sv(92)
+                                                                               295 Covered   
+/\tb_top#DUT /cover_count_down           counter Verilog  SVA  design/counter.sv(93)
+                                                                               218 Covered   
+/\tb_top#DUT /cover_hold_value           counter Verilog  SVA  design/counter.sv(94)
+                                                                               233 Covered   
+
+TOTAL DIRECTIVE COVERAGE: 100.00%  COVERS: 6
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/\tb_top#DUT /cover_load
+                     design/counter.sv(91)              0          1
+
+Total Coverage By Instance (filtered view): 100.00%
+
