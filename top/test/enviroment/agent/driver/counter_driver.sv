@@ -2,8 +2,6 @@ package counter_driver_pkg;
 
     import  uvm_pkg::*,
             counter_config_pkg::*,
-            counter_main_sequence_pkg::*,
-            counter_reset_sequence_pkg::*,
             counter_seq_item_pkg::*;
 
     `include "uvm_macros.svh"
@@ -28,10 +26,6 @@ package counter_driver_pkg;
                 c_if.load_n = stimulus_seq_item.load_n;
                 c_if.up_down = stimulus_seq_item.up_down;
                 c_if.ce = stimulus_seq_item.ce;
-                c_if.count_out = stimulus_seq_item.count_out;
-                c_if.max_count = stimulus_seq_item.max_count;
-                c_if.zero_flag = stimulus_seq_item.zero_flag;
-
                 @(negedge c_if.clk)
                 seq_item_port.item_done();
                 `uvm_info("run_phase",stimulus_seq_item.sprint(),UVM_HIGH)
